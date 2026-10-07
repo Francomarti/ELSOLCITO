@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Materiales — Portal SuTurf</title>
+<title>Insumos — Portal SuTurf</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,20 +16,20 @@
     </div>
     <div class="header-titles">
       <div class="eyebrow">SuTurf Tandil · Ing. Agr. Franco Martignoni</div>
-      <h1>Materiales de la obra</h1>
+      <h1>Insumos comprados</h1>
     </div>
     <nav class="site">
       <a href="index.html">Inicio</a>
-      <a href="cronograma.html">Obra</a>
+      <a href="cronograma.html">Cronograma</a>
       <a href="facturas.html">Facturación</a>
-      <a href="insumos.html" class="active">Materiales</a>
+      <a href="insumos.html" class="active">Insumos</a>
     </nav>
   </header>
   <div class="club-stripe"></div>
 
   <div class="cards" id="cards"></div>
 
-  <div class="section-title">Detalle de materiales <span>equipos y materiales comprados para la obra</span></div>
+  <div class="section-title">Detalle de insumos <span>materiales y productos, aparte de la mano de obra</span></div>
   <table class="facturas">
     <thead>
       <tr>
@@ -54,11 +54,11 @@
   const totalInsumos = insumos.reduce((s, i) => s + Number(i.valor || 0), 0);
 
   document.getElementById("cards").innerHTML = `
-    <div class="card"><div class="label">Total en materiales</div><div class="value">${fmt(totalInsumos)}</div></div>
+    <div class="card"><div class="label">Total en insumos</div><div class="value">${fmt(totalInsumos)}</div></div>
     <div class="card"><div class="label">Registros cargados</div><div class="value">${insumos.length}</div></div>`;
 
   if (insumos.length === 0) {
-    document.getElementById("tabla-insumos").innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:16px;">Todavía no hay materiales cargados.</td></tr>`;
+    document.getElementById("tabla-insumos").innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:16px;">Todavía no hay insumos cargados.</td></tr>`;
   } else {
     document.getElementById("tabla-insumos").innerHTML = insumos
       .slice()

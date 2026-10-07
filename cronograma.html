@@ -16,13 +16,13 @@
     </div>
     <div class="header-titles">
       <div class="eyebrow">SuTurf Tandil · Ing. Agr. Franco Martignoni</div>
-      <h1>Cómo viene la obra de riego</h1>
+      <h1>Cómo venimos con el plan</h1>
     </div>
     <nav class="site">
       <a href="index.html">Inicio</a>
-      <a href="cronograma.html" class="active">Obra</a>
+      <a href="cronograma.html" class="active">Cronograma</a>
       <a href="facturas.html">Facturación</a>
-      <a href="insumos.html">Materiales</a>
+      <a href="insumos.html">Insumos</a>
     </nav>
   </header>
   <div class="club-stripe"></div>
@@ -31,10 +31,10 @@
 
   <div id="next-banner"></div>
 
-  <div class="section-title">Cambios sobre el plan <span>por qué se movió algo</span></div>
+  <div class="section-title">Cambios sobre el plan original <span>por qué se movió algo</span></div>
   <div id="cambios-list" class="timeline"></div>
 
-  <div class="section-title">Etapas de la obra <span>lo que se hizo y lo que falta</span></div>
+  <div class="section-title">Detalle mes a mes <span>lo que se hizo y lo que falta</span></div>
   <div id="lista"></div>
 
   <div class="footer-note">Última actualización según el cronograma cargado por SuTurf Tandil.</div>
@@ -68,18 +68,18 @@
     <div class="hero-stats">
       <div class="hero-stat">
         <strong>${hechasInterv} / ${totalInterv}</strong>
-        <span>etapas realizadas</span>
+        <span>intervenciones realizadas</span>
       </div>
       <div class="hero-stat">
-        <strong>35</strong>
-        <span>aspersores en 7 líneas</span>
+        <strong>${meta.mesesTranscurridos || 0} / 12</strong>
+        <span>meses del contrato</span>
       </div>
-      ${totalPlan > 0 ? `<div class="hero-stat ${diferencia >= 0 ? "pos" : "neg"}">
+      <div class="hero-stat ${diferencia >= 0 ? "pos" : "neg"}">
         <strong>${diferencia >= 0 ? "+" : ""}${fmt(diferencia)}</strong>
         <span>trabajo hecho vs. cuota cobrada</span>
-      </div>` : ""}
+      </div>
     </div>
-    <div class="hero-footline"><strong style="color:#002A5C;">Instalación de riego automático</strong> · Cancha de fútbol 11 · ${meta.periodo || ""}${totalPlan > 0 ? ` · Cuota fija: ${fmt(meta.cuotaFija)}/mes · Plan: ${fmt(totalPlan)} · Realizado: ${fmt(totalRealizado)}` : ""}</div>
+    <div class="hero-footline"><strong style="color:#002A5C;">Período: ${meta.periodo || "a definir"}</strong> · Cuota fija: ${fmt(meta.cuotaFija)}/mes · Plan anual: ${fmt(totalPlan)} · Realizado: ${fmt(totalRealizado)}</div>
   `;
 
   // ---- Próxima tarea ----
@@ -87,7 +87,7 @@
   if (proxima) {
     document.getElementById("next-banner").innerHTML = `
       <div class="next-banner">
-        <div class="label">Próxima etapa</div>
+        <div class="label">Próxima tarea</div>
         <div class="tarea">${proxima.tarea}</div>
         <div class="meta">${proxima.mes} ${proxima.anio} · ${proxima.zona}${proxima.valor ? " · " + fmt(proxima.valor) : ""}</div>
       </div>`;
@@ -134,7 +134,7 @@
             <div class="check">${t.estado === "realizado" ? "✓" : ""}</div>
             <div class="item-body">
               <div class="tarea">${t.tarea}</div>
-              <div class="meta">${t.zona}${t.notas ? " · " + t.notas : ""}</div>
+              <div class="meta">${t.zona}${t.intervenciones ? " · " + t.intervenciones + " interv." : ""}${t.notas ? " · " + t.notas : ""}</div>
             </div>
             ${t.valor ? `<div class="valor">${fmt(t.valor)}</div>` : ""}
           </div>`).join("")}

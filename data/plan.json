@@ -1,110 +1,110 @@
 {
-  "meta": {
-    "cliente": "Club El Solcito",
-    "periodo": "Septiembre – Octubre 2026",
-    "cuotaFija": 0,
-    "mesesTranscurridos": 0
+ "meta": {
+  "cliente": "Club El Solcito",
+  "periodo": "Octubre 2026 – Septiembre 2027",
+  "cuotaFija": 329166.67,
+  "mesesTranscurridos": 0
+ },
+ "cambios": [],
+ "tareas": [
+  {
+   "id": 1,
+   "mes": "Octubre",
+   "anio": 2026,
+   "tarea": "Aireado Slicer Profundo (Doble)",
+   "zona": "Cancha completa",
+   "valor": 450000,
+   "intervenciones": 1,
+   "estado": "planificado",
+   "notas": ""
   },
-  "cambios": [],
-  "tareas": [
-    {
-      "id": 1,
-      "mes": "Septiembre",
-      "anio": 2026,
-      "tarea": "Replanteo y marcado de las 7 líneas de riego",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "realizado",
-      "notas": ""
-    },
-    {
-      "id": 2,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Zanjeo de las 7 líneas",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "realizado",
-      "notas": "~63 m por línea, separadas ~15 m"
-    },
-    {
-      "id": 3,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Armado del colector y la bomba",
-      "zona": "Sala de bombas",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": "Junto al edificio del club, a la altura de la línea Z4 · manómetro después de la bomba y tomas de prueba en cada electroválvula"
-    },
-    {
-      "id": 4,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Tendido de cañería y conexión de las 7 electroválvulas",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": ""
-    },
-    {
-      "id": 5,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Instalación de los 35 aspersores",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": "5 por línea · se prepara cada salida y los swing joints se colocan después, sin reabrir la zanja"
-    },
-    {
-      "id": 6,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Tablero y cableado de comando (24 V)",
-      "zona": "Colector y tablero",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": "7 estaciones + común"
-    },
-    {
-      "id": 7,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Pruebas de presión y de cobertura por línea",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": ""
-    },
-    {
-      "id": 8,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Tapado de zanjas y nivelación",
-      "zona": "7 líneas (Z1–Z7)",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": ""
-    },
-    {
-      "id": 9,
-      "mes": "Octubre",
-      "anio": 2026,
-      "tarea": "Puesta en marcha y programación del riego",
-      "zona": "Sistema completo",
-      "valor": 0,
-      "intervenciones": 1,
-      "estado": "planificado",
-      "notas": ""
-    }
-  ]
+  {
+   "id": 2,
+   "mes": "Octubre",
+   "anio": 2026,
+   "tarea": "Control de Malezas",
+   "zona": "Cancha completa",
+   "valor": 200000,
+   "intervenciones": 1,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 3,
+   "mes": "Octubre",
+   "anio": 2026,
+   "tarea": "Planificación anual y visitas (honorarios)",
+   "zona": "Asesoría y seguimiento",
+   "valor": 0,
+   "intervenciones": 0,
+   "estado": "planificado",
+   "notas": "Honorarios bonificados por SuTurf"
+  },
+  {
+   "id": 4,
+   "mes": "Diciembre",
+   "anio": 2026,
+   "tarea": "Púa hueca + Corte Vertical + Arena",
+   "zona": "Cancha completa",
+   "valor": 1200000,
+   "intervenciones": 3,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 5,
+   "mes": "Enero",
+   "anio": 2027,
+   "tarea": "Aireado Slicer Profundo (Doble)",
+   "zona": "Cancha completa",
+   "valor": 450000,
+   "intervenciones": 2,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 6,
+   "mes": "Marzo/Abril",
+   "anio": 2027,
+   "tarea": "Púa hueca + Corte Vertical + Siembra + Arena",
+   "zona": "Cancha completa",
+   "valor": 1200000,
+   "intervenciones": 4,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 7,
+   "mes": "Junio",
+   "anio": 2027,
+   "tarea": "Aireado Slicer Profundo / Púa Hueca",
+   "zona": "Cancha completa",
+   "valor": 450000,
+   "intervenciones": 1,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 8,
+   "mes": "Junio",
+   "anio": 2027,
+   "tarea": "Resiembra",
+   "zona": "Cancha completa",
+   "valor": 0,
+   "intervenciones": 1,
+   "estado": "planificado",
+   "notas": ""
+  },
+  {
+   "id": 9,
+   "mes": "Agosto",
+   "anio": 2027,
+   "tarea": "Resiembra",
+   "zona": "Cancha completa",
+   "valor": 0,
+   "intervenciones": 1,
+   "estado": "planificado",
+   "notas": ""
+  }
+ ]
 }

@@ -16,13 +16,13 @@
     </div>
     <div class="header-titles">
       <div class="eyebrow">SuTurf Tandil · Ing. Agr. Franco Martignoni</div>
-      <h1>Portal de obra — Club El Solcito</h1>
+      <h1>Portal de mantenimiento — Club El Solcito</h1>
     </div>
     <nav class="site">
       <a href="index.html" class="active">Inicio</a>
-      <a href="cronograma.html">Obra</a>
+      <a href="cronograma.html">Cronograma</a>
       <a href="facturas.html">Facturación</a>
-      <a href="insumos.html">Materiales</a>
+      <a href="insumos.html">Insumos</a>
     </nav>
   </header>
   <div class="club-stripe"></div>
@@ -30,25 +30,25 @@
   <div id="next-banner"></div>
   <div class="home-cards">
     <a class="home-card" href="cronograma.html">
-      <h2>Avance de obra</h2>
-      <p>Etapas de la instalación del riego automático: lo que ya se hizo y lo que falta.</p>
-    </a>
-    <a class="home-card" href="insumos.html">
-      <h2>Materiales</h2>
-      <p>Materiales y equipos comprados para la obra.</p>
+      <h2>Cronograma de trabajo</h2>
+      <p>Plan de mejoras y mantenimiento de la cancha, tareas realizadas y pendientes, balance contra la cuota.</p>
     </a>
     <a class="home-card" href="facturas.html">
       <h2>Facturación y pagos</h2>
-      <p>Facturas generadas, pagos recibidos y saldo pendiente.</p>
+      <p>Facturas generadas, PDFs, pagos recibidos y saldo pendiente.</p>
+    </a>
+    <a class="home-card" href="insumos.html">
+      <h2>Insumos</h2>
+      <p>Materiales y productos comprados para la cancha, aparte de la mano de obra.</p>
     </a>
   </div>
-  <div class="section-title">El sistema <span>riego automático de la cancha de fútbol 11</span></div>
+  <div class="section-title">El riego <span>sistema automático ya instalado en la cancha de fútbol 11</span></div>
   <div class="cards">
     <div class="card"><div class="label">Líneas de riego</div><div class="value">7</div></div>
     <div class="card"><div class="label">Aspersores</div><div class="value">35</div></div>
     <div class="card"><div class="label">Largo de cada línea</div><div class="value">~63 m</div></div>
   </div>
-  <div class="footer-note" style="text-align:left;">Siete líneas de riego (Z1 a Z7) cruzan la cancha a lo ancho, con cinco aspersores cada una. El colector y la bomba quedan cerca del centro, junto al edificio del club, a la altura de la línea Z4. Cada línea tiene su electroválvula y una toma de prueba de presión.</div>
+  <div class="footer-note" style="text-align:left;">Siete líneas de riego (Z1 a Z7) cruzan la cancha a lo ancho, con cinco aspersores cada una. El colector y la bomba quedaron cerca del centro, junto al edificio del club, a la altura de la línea Z4. Cada línea tiene su electroválvula y una toma de prueba de presión.</div>
   <div class="footer-note">Este portal se actualiza desde el panel de carga privado.</div>
 </div>
 <script src="js/app.js"></script>
@@ -76,7 +76,7 @@
     if (proxima) {
       document.getElementById("next-banner").innerHTML = `
         <div class="next-banner">
-          <div class="label">Próxima etapa</div>
+          <div class="label">Próxima tarea</div>
           <div class="tarea">${proxima.tarea}</div>
           <div class="meta">${proxima.mes} ${proxima.anio} · ${proxima.zona}${proxima.valor ? " · " + fmt(proxima.valor) : ""}</div>
         </div>`;
