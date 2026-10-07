@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": 1,
+    "fecha": "2026-09-21",
+    "producto": "Swing joint 3/4\"",
+    "cantidad": "35",
+    "valor": 117013.05,
+    "tareaRelacionada": "Instalación de los 35 aspersores",
+    "notas": "35 × $2.763 + IVA 21%"
+  },
+  {
+    "id": 2,
+    "fecha": "2026-09-21",
+    "producto": "Bridge USB WiFi para programador PRO LC / PRO-EX",
+    "cantidad": "1",
+    "valor": 269315.75,
+    "tareaRelacionada": "Puesta en marcha y programación del riego",
+    "notas": "$222.575 + IVA 21%"
+  }
+]

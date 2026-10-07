@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 1,
+    "numero": "A 00004-00066744",
+    "fecha": "2026-09-21",
+    "concepto": "Insumos de riego: 35 swing joints 3/4\" y bridge USB WiFi para programador (factura de Sure Rain S.A., IVA incluido)",
+    "monto": 386328.8,
+    "estado": "pendiente",
+    "montoPagado": 0,
+    "fechaPago": null,
+    "medioPago": null,
+    "pdf": "data/facturas/factura-A00004-00066744-sure-rain.pdf"
+  }
+]

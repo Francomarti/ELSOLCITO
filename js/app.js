@@ -1,5 +1,7 @@
 function fmt(n) {
-  return "$" + Number(n || 0).toLocaleString("es-AR");
+  const v = Number(n || 0);
+  const dec = Number.isInteger(v) ? 0 : 2;
+  return "$" + v.toLocaleString("es-AR", { minimumFractionDigits: dec, maximumFractionDigits: 2 });
 }
 
 function fmtFecha(iso) {
