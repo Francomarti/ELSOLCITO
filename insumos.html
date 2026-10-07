@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materiales — Portal SuTurf</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site hero-bg alt">
+    <div class="brand-row">
+      <img src="assets/logo-suturf.png" alt="SuTurf Tandil">
+      <span class="x">×</span>
+      <div class="logo-chip"><img src="assets/logo-solcito.svg" alt="Club El Solcito"></div>
+    </div>
+    <div class="header-titles">
+      <div class="eyebrow">SuTurf Tandil · Ing. Agr. Franco Martignoni</div>
+      <h1>Materiales de la obra</h1>
+    </div>
+    <nav class="site">
+      <a href="index.html">Inicio</a>
+      <a href="cronograma.html">Obra</a>
+      <a href="facturas.html">Facturación</a>
+      <a href="insumos.html" class="active">Materiales</a>
+    </nav>
+  </header>
+  <div class="club-stripe"></div>
+
+  <div class="cards" id="cards"></div>
+
+  <div class="section-title">Detalle de materiales <span>equipos y materiales comprados para la obra</span></div>
+  <table class="facturas">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Tarea relacionada</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-insumos"></tbody>
+  </table>
+
+  <div class="footer-note">Para actualizar: usar el panel de carga privado.</div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+(async function () {
+  const insumos = await cargarJSON("data/insumos.json");
+
+  const totalInsumos = insumos.reduce((s, i) => s + Number(i.valor || 0), 0);
+
+  document.getElementById("cards").innerHTML = `
+    <div class="card"><div class="label">Total en materiales</div><div class="value">${fmt(totalInsumos)}</div></div>
+    <div class="card"><div class="label">Registros cargados</div><div class="value">${insumos.length}</div></div>`;
+
+  if (insumos.length === 0) {
+    document.getElementById("tabla-insumos").innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:16px;">Todavía no hay materiales cargados.</td></tr>`;
+  } else {
+    document.getElementById("tabla-insumos").innerHTML = insumos
+      .slice()
+      .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      .map(i => `
+        <tr>
+          <td>${fmtFecha(i.fecha)}</td>
+          <td>${i.producto}${i.notas ? `<div style="font-size:11px;color:var(--muted);margin-top:2px;">${i.notas}</div>` : ""}</td>
+          <td>${i.cantidad || "—"}</td>
+          <td>${i.tareaRelacionada || "—"}</td>
+          <td>${fmt(i.valor)}</td>
+        </tr>`).join("");
+  }
+})();
+</script>
+</body>
+</html>

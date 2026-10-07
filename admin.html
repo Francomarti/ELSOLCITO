@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de carga — Portal SuTurf</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site hero-bg">
+    <div class="header-titles" style="padding-top:6px;">
+      <div class="eyebrow">Panel privado · no compartir este link</div>
+      <h1>Carga de datos — SuTurf / El Solcito</h1>
+    </div>
+    <nav class="site">
+      <a href="index.html">Volver al portal</a>
+    </nav>
+  </header>
+  <div class="club-stripe"></div>
+
+  <div class="admin-card" id="token-card">
+    <h2>Conexión con GitHub</h2>
+    <p class="admin-hint">Pegá acá tu Personal Access Token (con permiso de escritura solo sobre el repo ELSOLCITO). Se guarda únicamente en este navegador, nunca se comparte.</p>
+    <div class="admin-row">
+      <input type="password" id="token-input" placeholder="github_pat_..." autocomplete="off">
+      <button class="btn-primary" id="save-token">Guardar</button>
+      <button class="btn-ghost" id="clear-token">Borrar</button>
+    </div>
+    <div id="token-status" class="admin-status"></div>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="cronograma">Cronograma</button>
+    <button class="admin-tab" data-tab="cambios">Cambios</button>
+    <button class="admin-tab" data-tab="facturas">Facturas</button>
+    <button class="admin-tab" data-tab="insumos">Insumos</button>
+  </div>
+
+  <div id="tab-cronograma" class="admin-panel">
+    <div class="admin-card">
+      <h2>Meses transcurridos del contrato</h2>
+      <div class="admin-row">
+        <input type="number" id="meses-input" min="1" max="12" style="max-width:100px">
+        <button class="btn-primary" id="guardar-meses">Guardar</button>
+      </div>
+      <p class="admin-hint" style="margin-top:8px;">La cuota mensual se recalcula sola: (plan total − cobrado) ÷ meses que quedan.</p>
+    </div>
+
+    <div class="section-title">Tareas</div>
+    <div id="tareas-list" class="admin-list"></div>
+
+    <div class="admin-card">
+      <h2>Agregar tarea nueva</h2>
+      <div class="admin-row">
+        <select id="t-mes">
+          <option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+        </select>
+        <input type="number" id="t-anio" placeholder="Año" value="2026" style="max-width:90px">
+      </div>
+      <input id="t-tarea" placeholder="Descripción de la tarea">
+      <div class="admin-row">
+        <input id="t-zona" placeholder="Zona" value="Cancha completa">
+        <input type="number" id="t-valor" placeholder="Valor $">
+        <input type="number" id="t-interv" placeholder="Interv." value="1" style="max-width:80px">
+      </div>
+      <button class="btn-primary" id="add-tarea">Agregar tarea</button>
+    </div>
+  </div>
+
+  <div id="tab-cambios" class="admin-panel" style="display:none">
+    <div class="section-title">Cambios registrados</div>
+    <div id="cambios-list" class="admin-list"></div>
+
+    <div class="admin-card">
+      <h2>Agregar cambio nuevo</h2>
+      <div class="admin-row">
+        <input type="month" id="c-fecha">
+        <select id="c-tipo">
+          <option value="adelanto">Adelanto</option>
+          <option value="agregado">Tarea agregada</option>
+          <option value="modificacion">Modificación</option>
+        </select>
+      </div>
+      <input id="c-titulo" placeholder="Título corto (ej: Arenada adelantada a septiembre)">
+      <textarea id="c-detalle" placeholder="Explicación para el presidente: qué cambió y por qué" rows="3" style="width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;margin-bottom:8px;"></textarea>
+      <input type="number" id="c-impacto" placeholder="Impacto en $ (opcional)">
+      <button class="btn-primary" id="add-cambio">Agregar cambio</button>
+    </div>
+  </div>
+
+  <div id="tab-facturas" class="admin-panel" style="display:none">
+    <div class="section-title">Facturas cargadas</div>
+    <div id="facturas-list" class="admin-list"></div>
+
+    <div class="admin-card">
+      <h2>Agregar factura nueva</h2>
+      <div class="admin-row">
+        <input id="f-numero" placeholder="N° factura">
+        <input type="date" id="f-fecha">
+      </div>
+      <input id="f-concepto" placeholder="Concepto (ej: Cuota septiembre 2026)">
+      <div class="admin-row">
+        <input type="number" id="f-monto" placeholder="Monto $">
+      </div>
+      <input id="f-pdf" placeholder="Link de Drive al PDF (opcional, se puede sumar después)">
+      <button class="btn-primary" id="add-factura">Agregar factura</button>
+    </div>
+  </div>
+
+  <div id="tab-insumos" class="admin-panel" style="display:none">
+    <div class="section-title">Insumos cargados</div>
+    <div id="insumos-list" class="admin-list"></div>
+
+    <div class="admin-card">
+      <h2>Agregar insumo nuevo</h2>
+      <div class="admin-row">
+        <input type="date" id="i-fecha">
+        <input type="number" id="i-valor" placeholder="Valor $">
+      </div>
+      <input id="i-producto" placeholder="Producto (ej: Fertilizante NPK)">
+      <div class="admin-row">
+        <input id="i-cantidad" placeholder="Cantidad (ej: 2 bolsas 25kg)">
+        <input id="i-tarea" placeholder="Tarea relacionada (opcional)">
+      </div>
+      <input id="i-notas" placeholder="Notas (opcional)">
+      <button class="btn-primary" id="add-insumo">Agregar insumo</button>
+    </div>
+  </div>
+
+  <div class="footer-note">Panel de uso interno — los cambios se guardan directo en el repositorio.</div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+const OWNER = "Francomarti";
+const REPO = "ELSOLCITO";
+const BRANCH = "main";
+
+function getToken() { return localStorage.getItem("gye_admin_token") || ""; }
+
+function b64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m, p1) => String.fromCharCode("0x" + p1)));
+}
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join(""));
+}
+
+async function ghGetFile(path) {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
+    headers: { Authorization: `token ${getToken()}` }
+  });
+  if (!res.ok) throw new Error(`No se pudo leer ${path} (HTTP ${res.status})`);
+  const data = await res.json();
+  return { sha: data.sha, json: JSON.parse(b64DecodeUnicode(data.content)) };
+}
+
+async function ghPutFile(path, obj, sha, message) {
+  const content = b64EncodeUnicode(JSON.stringify(obj, null, 2));
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, {
+    method: "PUT",
+    headers: { Authorization: `token ${getToken()}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ message, content, sha, branch: BRANCH })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `Error al guardar ${path} (HTTP ${res.status})`);
+  }
+  return res.json();
+}
+
+// ---------- Token UI ----------
+const tokenInput = document.getElementById("token-input");
+const tokenStatus = document.getElementById("token-status");
+
+function refreshTokenStatus() {
+  if (getToken()) {
+    tokenStatus.textContent = "Token guardado en este navegador ✓";
+    tokenStatus.className = "admin-status ok";
+    tokenInput.value = "••••••••••••";
+    cargarTodo();
+  } else {
+    tokenStatus.textContent = "Todavía no cargaste un token — no vas a poder guardar cambios hasta hacerlo.";
+    tokenStatus.className = "admin-status warn";
+  }
+}
+
+document.getElementById("save-token").onclick = () => {
+  const v = tokenInput.value.trim();
+  if (v && !v.startsWith("•")) {
+    localStorage.setItem("gye_admin_token", v);
+    refreshTokenStatus();
+  }
+};
+document.getElementById("clear-token").onclick = () => {
+  localStorage.removeItem("gye_admin_token");
+  tokenInput.value = "";
+  refreshTokenStatus();
+};
+
+// ---------- Tabs ----------
+document.querySelectorAll(".admin-tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".admin-tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".admin-panel").forEach(p => p.style.display = "none");
+    document.getElementById("tab-" + btn.dataset.tab).style.display = "block";
+  };
+});
+
+// ---------- Cronograma ----------
+let planCache = null;
+const MES_ORDEN = { "Junio":1, "Julio":2, "Agosto":3, "Septiembre":4, "Octubre":5, "Noviembre":6, "Diciembre":7, "Enero":8, "Febrero":9, "Marzo":10, "Marzo/Abril":10.5, "Abril":11, "Mayo":12 };
+
+async function cargarPlan() {
+  const list = document.getElementById("tareas-list");
+  list.innerHTML = "Cargando...";
+  try {
+    const { sha, json } = await ghGetFile("data/plan.json");
+    planCache = { sha, json };
+    document.getElementById("meses-input").value = json.meta.mesesTranscurridos;
+    renderTareas();
+    renderCambios();
+  } catch (e) {
+    list.innerHTML = `<div class="admin-error">${e.message}</div>`;
+  }
+}
+
+function renderTareas() {
+  const list = document.getElementById("tareas-list");
+  const ordenadas = planCache.json.tareas.slice().sort((a, b) => {
+    if (a.anio !== b.anio) return a.anio - b.anio;
+    return (MES_ORDEN[a.mes] || 99) - (MES_ORDEN[b.mes] || 99);
+  });
+  list.innerHTML = ordenadas.map(t => `
+    <div class="admin-item">
+      <button class="check ${t.estado === "realizado" ? "done" : ""}" data-id="${t.id}">${t.estado === "realizado" ? "✓" : ""}</button>
+      <div class="admin-item-body">
+        <div class="admin-item-title">${t.tarea}</div>
+        <div class="admin-item-meta">${t.mes} ${t.anio} · ${fmt(t.valor)}</div>
+      </div>
+      <button class="btn-ghost btn-del" data-del="${t.id}">Eliminar</button>
+    </div>`).join("");
+
+  list.querySelectorAll(".check").forEach(btn => {
+    btn.onclick = async () => {
+      const id = Number(btn.dataset.id);
+      const t = planCache.json.tareas.find(x => x.id === id);
+      t.estado = t.estado === "realizado" ? "planificado" : "realizado";
+      await guardarPlan("Actualiza estado de tarea");
+    };
+  });
+  list.querySelectorAll("[data-del]").forEach(btn => {
+    btn.onclick = async () => {
+      if (!confirm("¿Eliminar esta tarea del cronograma?")) return;
+      const id = Number(btn.dataset.del);
+      planCache.json.tareas = planCache.json.tareas.filter(x => x.id !== id);
+      await guardarPlan("Elimina tarea");
+    };
+  });
+}
+
+function recalcularCuota() {
+  const total = planCache.json.tareas.reduce((s, t) => s + Number(t.valor || 0), 0);
+  const cobrado = (facturasCache && facturasCache.json)
+    ? facturasCache.json.reduce((s, f) => s + Number(f.montoPagado || 0), 0)
+    : 0;
+  const mesesTranscurridos = planCache.json.meta.mesesTranscurridos || 0;
+  const mesesRestantes = Math.max(1, 12 - mesesTranscurridos);
+  const saldo = total - cobrado;
+  if (total <= 0) { planCache.json.meta.cuotaFija = 0; return; }
+  planCache.json.meta.cuotaFija = Math.round(saldo / mesesRestantes);
+}
+
+async function guardarPlan(message) {
+  try {
+    recalcularCuota();
+    const result = await ghPutFile("data/plan.json", planCache.json, planCache.sha, message);
+    planCache.sha = result.content.sha;
+    document.getElementById("meses-input").value = planCache.json.meta.mesesTranscurridos;
+    renderTareas();
+  } catch (e) {
+    alert("Error al guardar: " + e.message);
+  }
+}
+
+document.getElementById("guardar-meses").onclick = async () => {
+  if (!planCache) return;
+  planCache.json.meta.mesesTranscurridos = Number(document.getElementById("meses-input").value) || 1;
+  await guardarPlan("Actualiza meses transcurridos");
+};
+
+document.getElementById("add-tarea").onclick = async () => {
+  if (!planCache) return;
+  const tarea = document.getElementById("t-tarea").value.trim();
+  if (!tarea) { alert("Escribí una descripción de la tarea"); return; }
+  const nextId = Math.max(0, ...planCache.json.tareas.map(t => t.id)) + 1;
+  planCache.json.tareas.push({
+    id: nextId,
+    mes: document.getElementById("t-mes").value,
+    anio: Number(document.getElementById("t-anio").value) || 2026,
+    tarea,
+    zona: document.getElementById("t-zona").value.trim() || "Cancha completa",
+    valor: Number(document.getElementById("t-valor").value) || 0,
+    intervenciones: Number(document.getElementById("t-interv").value) || 1,
+    estado: "planificado",
+    notas: ""
+  });
+  await guardarPlan("Agrega tarea nueva");
+  document.getElementById("t-tarea").value = "";
+  document.getElementById("t-valor").value = "";
+};
+
+// ---------- Cambios ----------
+function renderCambios() {
+  const list = document.getElementById("cambios-list");
+  const cambios = planCache.json.cambios || [];
+  if (cambios.length === 0) {
+    list.innerHTML = `<div class="admin-hint">Todavía no hay cambios registrados.</div>`;
+    return;
+  }
+  list.innerHTML = cambios.map(c => `
+    <div class="admin-item">
+      <div class="admin-item-body">
+        <div class="admin-item-title">${c.titulo}</div>
+        <div class="admin-item-meta">${c.fecha} · ${c.tipo}${c.impacto ? " · " + fmt(c.impacto) : ""}</div>
+      </div>
+      <button class="btn-ghost btn-del" data-delc="${c.id}">Eliminar</button>
+    </div>`).join("");
+
+  list.querySelectorAll("[data-delc]").forEach(btn => {
+    btn.onclick = async () => {
+      if (!confirm("¿Eliminar este cambio del registro?")) return;
+      const id = Number(btn.dataset.delc);
+      planCache.json.cambios = (planCache.json.cambios || []).filter(x => x.id !== id);
+      await guardarPlan("Elimina cambio del registro");
+      renderCambios();
+    };
+  });
+}
+
+document.getElementById("add-cambio").onclick = async () => {
+  if (!planCache) return;
+  const titulo = document.getElementById("c-titulo").value.trim();
+  const detalle = document.getElementById("c-detalle").value.trim();
+  if (!titulo || !detalle) { alert("Completá al menos el título y la explicación"); return; }
+  if (!planCache.json.cambios) planCache.json.cambios = [];
+  const nextId = Math.max(0, ...planCache.json.cambios.map(c => c.id)) + 1;
+  planCache.json.cambios.push({
+    id: nextId,
+    fecha: document.getElementById("c-fecha").value || new Date().toISOString().slice(0, 7),
+    titulo,
+    detalle,
+    impacto: Number(document.getElementById("c-impacto").value) || 0,
+    tipo: document.getElementById("c-tipo").value
+  });
+  await guardarPlan("Agrega cambio al registro");
+  renderCambios();
+  document.getElementById("c-titulo").value = "";
+  document.getElementById("c-detalle").value = "";
+  document.getElementById("c-impacto").value = "";
+};
+
+// ---------- Facturas ----------
+let facturasCache = null;
+
+async function cargarFacturas() {
+  const list = document.getElementById("facturas-list");
+  list.innerHTML = "Cargando...";
+  try {
+    const { sha, json } = await ghGetFile("data/facturas.json");
+    facturasCache = { sha, json };
+    renderFacturas();
+  } catch (e) {
+    list.innerHTML = `<div class="admin-error">${e.message}</div>`;
+  }
+}
+
+function renderFacturas() {
+  const list = document.getElementById("facturas-list");
+  list.innerHTML = facturasCache.json.map(f => `
+    <div class="admin-card">
+      <div class="admin-item-title">#${f.numero} · ${f.concepto} · ${fmt(f.monto)}</div>
+      <div class="admin-row">
+        <select data-field="estado" data-id="${f.id}">
+          <option value="pendiente" ${f.estado === "pendiente" ? "selected" : ""}>Pendiente</option>
+          <option value="parcial" ${f.estado === "parcial" ? "selected" : ""}>Pago parcial</option>
+          <option value="pagada" ${f.estado === "pagada" ? "selected" : ""}>Pagada</option>
+        </select>
+        <input type="number" data-field="montoPagado" data-id="${f.id}" value="${f.montoPagado || 0}" placeholder="Monto pagado">
+      </div>
+      <div class="admin-row">
+        <input type="date" data-field="fechaPago" data-id="${f.id}" value="${f.fechaPago || ""}">
+        <input data-field="medioPago" data-id="${f.id}" value="${f.medioPago || ""}" placeholder="Medio de pago">
+      </div>
+      <input data-field="pdf" data-id="${f.id}" value="${f.pdf || ""}" placeholder="Link de Drive al PDF">
+      <div class="admin-row">
+        <button class="btn-primary" data-save="${f.id}">Guardar cambios</button>
+        <button class="btn-ghost" data-del="${f.id}">Eliminar factura</button>
+      </div>
+    </div>`).join("");
+
+  list.querySelectorAll("[data-save]").forEach(btn => {
+    btn.onclick = async () => {
+      const id = Number(btn.dataset.save);
+      const f = facturasCache.json.find(x => x.id === id);
+      list.querySelectorAll(`[data-id="${id}"]`).forEach(input => {
+        const field = input.dataset.field;
+        f[field] = field === "montoPagado" ? (Number(input.value) || 0) : (input.value || null);
+      });
+      await guardarFacturas("Actualiza factura #" + f.numero);
+    };
+  });
+  list.querySelectorAll("[data-del]").forEach(btn => {
+    btn.onclick = async () => {
+      if (!confirm("¿Eliminar esta factura?")) return;
+      const id = Number(btn.dataset.del);
+      facturasCache.json = facturasCache.json.filter(x => x.id !== id);
+      await guardarFacturas("Elimina factura");
+    };
+  });
+}
+
+async function guardarFacturas(message) {
+  try {
+    const result = await ghPutFile("data/facturas.json", facturasCache.json, facturasCache.sha, message);
+    facturasCache.sha = result.content.sha;
+    renderFacturas();
+    if (planCache) await guardarPlan("Recalcula cuota tras actualizar facturas");
+  } catch (e) {
+    alert("Error al guardar: " + e.message);
+  }
+}
+
+document.getElementById("add-factura").onclick = async () => {
+  if (!facturasCache) return;
+  const numero = document.getElementById("f-numero").value.trim();
+  const concepto = document.getElementById("f-concepto").value.trim();
+  if (!numero || !concepto) { alert("Completá al menos número y concepto"); return; }
+  const nextId = Math.max(0, ...facturasCache.json.map(f => f.id)) + 1;
+  facturasCache.json.push({
+    id: nextId,
+    numero,
+    fecha: document.getElementById("f-fecha").value || new Date().toISOString().slice(0, 10),
+    concepto,
+    monto: Number(document.getElementById("f-monto").value) || 0,
+    estado: "pendiente",
+    montoPagado: 0,
+    fechaPago: null,
+    medioPago: null,
+    pdf: document.getElementById("f-pdf").value.trim() || null
+  });
+  await guardarFacturas("Agrega factura nueva");
+  ["f-numero", "f-concepto", "f-monto", "f-pdf"].forEach(id => document.getElementById(id).value = "");
+};
+
+function cargarTodo() {
+  cargarPlan();
+  cargarFacturas();
+  cargarInsumos();
+}
+
+// ---------- Insumos ----------
+let insumosCache = null;
+
+async function cargarInsumos() {
+  const list = document.getElementById("insumos-list");
+  list.innerHTML = "Cargando...";
+  try {
+    const { sha, json } = await ghGetFile("data/insumos.json");
+    insumosCache = { sha, json };
+    renderInsumos();
+  } catch (e) {
+    list.innerHTML = `<div class="admin-error">${e.message}</div>`;
+  }
+}
+
+function renderInsumos() {
+  const list = document.getElementById("insumos-list");
+  if (insumosCache.json.length === 0) {
+    list.innerHTML = `<div class="admin-hint">Todavía no hay insumos cargados.</div>`;
+    return;
+  }
+  list.innerHTML = insumosCache.json.map(i => `
+    <div class="admin-item">
+      <div class="admin-item-body">
+        <div class="admin-item-title">${i.producto} — ${fmt(i.valor)}</div>
+        <div class="admin-item-meta">${i.fecha}${i.tareaRelacionada ? " · " + i.tareaRelacionada : ""}</div>
+      </div>
+      <button class="btn-ghost btn-del" data-deli="${i.id}">Eliminar</button>
+    </div>`).join("");
+
+  list.querySelectorAll("[data-deli]").forEach(btn => {
+    btn.onclick = async () => {
+      if (!confirm("¿Eliminar este insumo?")) return;
+      const id = Number(btn.dataset.deli);
+      insumosCache.json = insumosCache.json.filter(x => x.id !== id);
+      await guardarInsumos("Elimina insumo");
+    };
+  });
+}
+
+async function guardarInsumos(message) {
+  try {
+    const result = await ghPutFile("data/insumos.json", insumosCache.json, insumosCache.sha, message);
+    insumosCache.sha = result.content.sha;
+    renderInsumos();
+  } catch (e) {
+    alert("Error al guardar: " + e.message);
+  }
+}
+
+document.getElementById("add-insumo").onclick = async () => {
+  if (!insumosCache) return;
+  const producto = document.getElementById("i-producto").value.trim();
+  if (!producto) { alert("Escribí el nombre del producto"); return; }
+  const nextId = Math.max(0, ...insumosCache.json.map(i => i.id)) + 1;
+  insumosCache.json.push({
+    id: nextId,
+    fecha: document.getElementById("i-fecha").value || new Date().toISOString().slice(0, 10),
+    producto,
+    cantidad: document.getElementById("i-cantidad").value.trim(),
+    valor: Number(document.getElementById("i-valor").value) || 0,
+    tareaRelacionada: document.getElementById("i-tarea").value.trim(),
+    notas: document.getElementById("i-notas").value.trim()
+  });
+  await guardarInsumos("Agrega insumo nuevo");
+  ["i-producto", "i-cantidad", "i-valor", "i-tarea", "i-notas"].forEach(id => document.getElementById(id).value = "");
+};
+
+refreshTokenStatus();
+</script>
+</body>
+</html>
